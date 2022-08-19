@@ -1,0 +1,9 @@
+body {
+  background: aqua;
+}
+
+button {
+  font-size: 16px;
+  padding: 16px 32px;
+  background: magenta;
+}
