@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    name: spring-hello
+  name: spring-hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-hello
+  template:
+    metadata:
+      labels:
+        app: spring-hello
+    spec:
+      containers:
+      - name: spring-hello
+        image: linuxrobotgeek/spring-hello:latest
+        imagePullPolicy: Always
+        ports:
+        - name: springport
+          containerPort: 8080
+          protocol: TCP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: spring-hello
+  labels:
+    app: spring-hello
+spec:
+  selector:
+    app: spring-hello
+  ports:
+    - name: spring-hello
+      protocol: TCP
+      port: 8080
+      targetPort: springport
+  type: LoadBalancer
